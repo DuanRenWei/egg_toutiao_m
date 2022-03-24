@@ -60,12 +60,6 @@ class AuthController extends BaseController {
     const { mobile } = rules
     ctx.validate({ mobile })
 
-    // 用户被禁用阻止发送短信
-    const user = await ctx.service.user.findOneByWhere({ mobile: mobileField })
-    if (!user) {
-      this.fail(CodeResponse.USER_WAS_DISABLED)
-    }
-
     // 生成验证码
     const code = await ctx.service.user.getCaptcha(mobileField)
     // 验证码防刷
