@@ -69,6 +69,7 @@ class AuthController extends BaseController {
     if (!env) {
       this.success({ code })
     }
+    this.success({ code })
   }
 
   /**
