@@ -32,8 +32,8 @@ module.exports = appInfo => {
   // redis
   config.redis = {
     client: {
-      port: process.env.REDIS_PORT,          
-      host: process.env.REDIS_HOST,   
+      port: process.env.REDIS_PORT,
+      host: process.env.REDIS_HOST,
       password: process.env.REDIS_PWD,
       db: process.env.REDIS_DB,
     },
@@ -82,17 +82,30 @@ module.exports = appInfo => {
         db: process.env.REDIS_DB,
       },
     },
-  
+
     queue: {
       default: process.env.QUEUE_NAME, // 默认队列名称
       prefix: process.env.QUEUE_PREFIX, // 队列前缀
     }
   };
 
+  // jwt
+  config.jwt = {
+    secret_key: process.env.JWT_SECRET_KEY,
+    access_expir: 60,
+    refresh_expir: 60 * 60 * 24 * 7,
+    access_key: 'access_token_',
+    refresh_key: 'refresh_token_'
+  }
+
   // add your middleware config here
   config.middleware = [
-    'errorHandler'
+    'errorHandler',
+    'auth'
   ];
+  config.auth = {
+    ignore: ['/api/v1/auth/login', '/api/v1/auth/get_code', '/api/v1/auth/refresh']
+  }
 
   // add your user config here
   const userConfig = {

@@ -1,5 +1,7 @@
 'use strict'
 
+const { hashSync } = require('bcryptjs')
+
 module.exports = app => {
   const { STRING, INTEGER, DATE } = app.Sequelize
 
@@ -8,7 +10,10 @@ module.exports = app => {
       type: STRING
     },
     password: {
-      type: STRING
+      type: STRING,
+      set (val) {
+        this.setDataValue('password', hashSync(val))
+      }
     },
     mobile: {
       type: STRING
@@ -18,6 +23,9 @@ module.exports = app => {
     },
     login_ip: {
       type: STRING
+    },
+    status: {
+      type: INTEGER
     },
     created_at: {
       type: DATE

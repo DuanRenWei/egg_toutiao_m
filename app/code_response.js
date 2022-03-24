@@ -26,6 +26,19 @@ class CodeResponse {
    * @title 验证码不正确
    */
   static VERIFICATION_CODE_IS_INCORRECT = {errno:10004, status: 400, errmsg: '验证码不正确...'}
+  /**
+   * @title token 已过期
+   */
+  static TOKENEXPIREDERROR = {errno:10005, status: 400, errmsg: 'token已过期...'}
+  /**
+   * @title token 不合法
+   */
+  static JSONWEBTOKENERROR = {errno:10006, status: 400, errmsg: 'token不合法...'}
+
+  /**
+   * @title 用户已被禁用
+   */
+  static USER_WAS_DISABLED = {errno:10007, status: 400, errmsg: '用户已被禁用，请联系管理员...'}
 }
 
 module.exports = CodeResponse

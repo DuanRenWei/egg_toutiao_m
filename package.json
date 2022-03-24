@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "dayjs": "^1.11.0",
     "dotenv": "^16.0.0",
     "egg": "^2.15.1",
     "egg-bus": "^1.0.1",
@@ -16,6 +17,7 @@
     "egg-scripts": "^2.11.0",
     "egg-sequelize": "^6.0.0",
     "egg-valparams": "^1.4.5",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "random": "^3.0.6"
   },
