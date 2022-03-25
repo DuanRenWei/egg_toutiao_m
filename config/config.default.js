@@ -1,7 +1,7 @@
 /* eslint valid-jsdoc: "off" */
 
 'use strict';
-require('dotenv').config()
+require('dotenv').config();
 
 /**
  * @param {Egg.EggAppInfo} appInfo app info
@@ -19,15 +19,15 @@ module.exports = appInfo => {
   // 关闭 csrf
   config.security = {
     csrf: {
-      enable: false
-    }
-  }
+      enable: false,
+    },
+  };
 
   // validator
   config.valparams = {
     locale: 'zh-cn',
-    throwError: true
-  }
+    throwError: true,
+  };
 
   // redis
   config.redis = {
@@ -37,7 +37,7 @@ module.exports = appInfo => {
       password: process.env.REDIS_PWD,
       db: process.env.REDIS_DB,
     },
-  }
+  };
 
   // mysql
   config.sequelize = {
@@ -46,16 +46,16 @@ module.exports = appInfo => {
     password: process.env.MYSQL_PWD,
     port: process.env.MYSQL_PORT,
     database: process.env.MYSQL_DATABASE,
-    timezone: "+08:00",
+    timezone: '+08:00',
     define: {
       freezeTableName: true, // 关闭复数表名
       paranoid: true, // 生成 deleted_at 软删字段
       underscored: true, // 驼峰转下划线
       createdAt: 'created_at', // 自定义创建时间字段
       updatedAt: 'updated_at',
-      deletedAt: 'deleted_at'
-    }
-  }
+      deletedAt: 'deleted_at',
+    },
+  };
 
   // 消息队列配置
   config.bus = {
@@ -70,7 +70,7 @@ module.exports = appInfo => {
           delay: 3000,
           type: 'fixed',
         },
-      }
+      },
     },
     job: {
       // 与 listener 一致，唯一不同的就是 默认 baseDir 的值为 `job`
@@ -86,26 +86,26 @@ module.exports = appInfo => {
     queue: {
       default: process.env.QUEUE_NAME, // 默认队列名称
       prefix: process.env.QUEUE_PREFIX, // 队列前缀
-    }
+    },
   };
 
   // jwt
   config.jwt = {
     secret_key: process.env.JWT_SECRET_KEY,
-    access_expir: 60,
+    access_expir: 60 * 60 * 10,
     refresh_expir: 60 * 60 * 24 * 7,
     access_key: 'access_token_',
-    refresh_key: 'refresh_token_'
-  }
+    refresh_key: 'refresh_token_',
+  };
 
   // add your middleware config here
   config.middleware = [
     'errorHandler',
-    'auth'
+    'auth',
   ];
   config.auth = {
-    ignore: ['/api/v1/auth/login', '/api/v1/auth/get_code', '/api/v1/auth/refresh']
-  }
+    ignore: [ '/api/v1/auth/login', '/api/v1/auth/get_code', '/api/v1/auth/refresh' ],
+  };
 
   // add your user config here
   const userConfig = {
