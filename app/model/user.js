@@ -1,42 +1,42 @@
-'use strict'
+'use strict';
 
-const { hashSync } = require('bcryptjs')
+const { hashSync } = require('bcryptjs');
 
 module.exports = app => {
-  const { STRING, INTEGER, DATE } = app.Sequelize
+  const { STRING, INTEGER, DATE } = app.Sequelize;
 
   const User = app.model.define('user', {
     username: {
-      type: STRING
+      type: STRING,
     },
     password: {
       type: STRING,
-      set (val) {
-        this.setDataValue('password', hashSync(val))
-      }
+      set(val) {
+        this.setDataValue('password', hashSync(val));
+      },
     },
     mobile: {
-      type: STRING
+      type: STRING,
     },
     login_time: {
-      type: DATE
+      type: DATE,
     },
     login_ip: {
-      type: STRING
+      type: STRING,
     },
     status: {
-      type: INTEGER
+      type: INTEGER,
     },
     created_at: {
-      type: DATE
+      type: DATE,
     },
     updated_at: {
-      type: DATE
+      type: DATE,
     },
     deleted_at: {
-      type: DATE
-    }
-  })
+      type: DATE,
+    },
+  });
 
-  return User
-}
+  return User;
+};

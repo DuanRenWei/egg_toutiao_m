@@ -10,8 +10,8 @@ class CacheService extends Service {
    * @return { array } 返回数组
    */
   async getList(key, isChildObject = false) {
-    const { redis } = this.app
-    let data = await redis.lrange(key, 0, -1)
+    const { redis } = this.app;
+    let data = await redis.lrange(key, 0, -1);
     if (isChildObject) {
       data = data.map(item => {
         return JSON.parse(item);
@@ -28,7 +28,7 @@ class CacheService extends Service {
    * @return { Number } 返回索引
    */
   async setList(key, value, type = 'push', expir = 0) {
-    const { redis } = this.app
+    const { redis } = this.app;
     if (expir > 0) {
       await redis.expire(key, expir);
     }
@@ -49,12 +49,12 @@ class CacheService extends Service {
    * @return { String } 返回成功字符串OK
    */
   async set(key, value, expir = 0) {
-    const { redis } = this.app
+    const { redis } = this.app;
     if (expir === 0) {
       return await redis.set(key, JSON.stringify(value));
-    } else {
-      return await redis.set(key, JSON.stringify(value), 'EX', expir);
     }
+    return await redis.set(key, JSON.stringify(value), 'EX', expir);
+
   }
 
   /**
@@ -63,24 +63,24 @@ class CacheService extends Service {
    * @return { String | array | Object } 返回获取的数据
    */
   async get(key) {
-    const { redis } = this.app
-    const result = await redis.get(key)
-    return JSON.parse(result)
+    const { redis } = this.app;
+    const result = await redis.get(key);
+    return JSON.parse(result);
   }
 
   /**
    * redis 自增
    * @param { String } key 键
-   * @param { Number } value 自增的值 
+   * @param { Number } value 自增的值
    * @return { Number } 返回递增值
    */
   async incr(key, number = 1) {
-    const { redis } = this.app
+    const { redis } = this.app;
     if (number === 1) {
-      return await redis.incr(key)
-    } else {
-      return await redis.incrby(key, number)
+      return await redis.incr(key);
     }
+    return await redis.incrby(key, number);
+
   }
 
   /**
@@ -89,17 +89,17 @@ class CacheService extends Service {
    * @return { Number } 返回数据长度
    */
   async strlen(key) {
-    const { redis } = this.app
-    return await redis.strlen(key)
+    const { redis } = this.app;
+    return await redis.strlen(key);
   }
 
   /**
    * 删除指定key
-   * @param {String} key 
+   * @param {String} key
    */
   async remove(key) {
-    const { redis } = this.app
-    return await redis.del(key)
+    const { redis } = this.app;
+    return await redis.del(key);
   }
 
   /**
@@ -107,32 +107,32 @@ class CacheService extends Service {
    * @param {String} 缓存的key
    * @param {String | Object} 缓存的值
    * @param {Number} expir 过期时间 单位秒
-   * @returns {Boolean} 如果添加过缓存返回 false
+   * @return {Boolean} 如果添加过缓存返回 false
    */
   async add(key, value, expir = 0) {
-    const re = await this.get(key)
+    const re = await this.get(key);
     if (re) {
-      return false
+      return false;
     }
-    await this.set(key, value, expir)
-    return true
+    await this.set(key, value, expir);
+    return true;
   }
 
   /**
    * 判断缓存的key是否存在
-   * @param {string} key 
-   * @returns {true | false}
+   * @param {string} key
+   * @return {true | false}
    */
   async has(key) {
-    const res = await this.get(key)
-    return res ? true : false
+    const res = await this.get(key);
+    return !!res;
   }
 
   /**
    * 清空缓存
    */
   async clear() {
-    return await this.app.redis.flushall()
+    return await this.app.redis.flushall();
   }
 }
 
