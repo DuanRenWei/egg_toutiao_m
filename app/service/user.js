@@ -112,6 +112,34 @@ class UserService extends Service {
 
     return user ? user.dataValues : null;
   }
+
+  /**
+   * @title 获取当前登录用户ID
+   */
+  async getUserId() {
+    return this.ctx.state.auth.id;
+  }
+
+  /**
+   * @title 检查用户是否登录
+   */
+  async isLogin() {
+    return this.ctx.state.auth;
+  }
+
+  /**
+   * @title 获取用户收藏的频道
+   */
+  async getCollectionCategories() {
+    const id = await this.getUserId();
+
+    return await this.app.model.User.findByPk(id, {
+      include: {
+        model: this.app.model.Category,
+        through: { attributes: [ ] },
+      },
+    });
+  }
 }
 
 module.exports = UserService;

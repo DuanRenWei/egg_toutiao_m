@@ -38,5 +38,10 @@ module.exports = app => {
     },
   });
 
+  User.associate = function() {
+    User.belongsToMany(app.model.Category, { through: app.model.UserCategory });
+  };
+
+
   return User;
 };

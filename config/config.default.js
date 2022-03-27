@@ -104,7 +104,13 @@ module.exports = appInfo => {
     'auth',
   ];
   config.auth = {
-    ignore: [ '/api/v1/auth/login', '/api/v1/auth/get_code', '/api/v1/auth/refresh' ],
+    // 不需要鉴权的路由
+    ignore: [
+      '/api/v1/auth/login',
+      '/api/v1/auth/get_code',
+      '/api/v1/auth/refresh',
+      '/api/v1/category/recommend',
+    ],
   };
 
   // add your user config here

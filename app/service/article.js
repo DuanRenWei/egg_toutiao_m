@@ -4,9 +4,6 @@ const Service = require('egg').Service;
 
 class ArticleService extends Service {
 
-  /**
-   * 根据条件查询文章列表
-   */
   async findByWhere(query) {
     const { keywords, page = 1, limit = 10, order, cate_id } = query;
     const whereOpts = {};
